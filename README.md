@@ -18,22 +18,22 @@ Related publication: time series analysis of continuous glucose monitoring data 
 
 ## Results (one patient, 15-minute CGM readings, last 25% of the data as test set)
 
-**Forecasting (close to the published results)**
+**Forecasting (all readings, reproduces the published results)**
 
 | Model | MAE | RMSE |
 |---|---|---|
-| XGBoost | 0.32 | 0.45 |
-| SARIMA | 2.07 | 2.43 |
+| XGBoost | 0.32 | 0.46 |
+| SARIMA | 1.93 | 2.38 |
 | Prophet | 2.22 | 2.64 |
 
 **Confidence and tiny-device deployment**
 
 | Model | Size | MAE | 90% interval coverage |
 |---|---|---|---|
-| XGBoost, 500 trees (conformal) | 2.7 MB | 0.40 | 84% |
+| XGBoost, 500 trees (conformal) | 2.6 MB | 0.39 | 85% |
 | XGBoost quantile regression | | 0.31 | 89% |
-| Neural network, float32 (conformal) | 3.5 KB | 0.40 | 81% |
-| Neural network, int8 (conformal) | 3.5 KB | 0.40 | 80% |
+| Neural network, float32 (conformal) | 3.5 KB | 0.45 | 82% |
+| Neural network, int8 (conformal) | 3.5 KB | 0.45 | 82% |
 
 - int8 quantization did not reduce accuracy or change interval coverage.
 - Intervals calibrated on earlier months cover fewer than 90% of later readings, because the glucose pattern changes over time. A confidence estimate can become over-confident after deployment, so it needs to adapt.
